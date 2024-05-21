@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Synthesizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+        <div id="overlay"></div>
+    
+    <div id="logo">
+        <img src="https://img.icons8.com/3d-fluency/94/chatbot.png">
+    </div>
+    
+   
+    <div id="title">
+        <h2>Resume Synthesizer</h2>
+        <p>Upload and start interacting with the resumes</p>
+    </div>
+    <!--<hr id="hr">-->
+    
+    <div id="lottieContainer">
+        <dotlottie-player id="lottieAnimation" src="https://lottie.host/b3458689-1c5a-42bf-989e-022334c0d77f/40ZcnWqOuo.lottie" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+    </div>
+    
+     <div id="container">
+    <div id="flowise">
+        <p>You can upload multiple files of type docx, and pdf</p>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="files" multiple>
+            <br><br>
+            <input type="submit" value="Upload Files" id="button">
+        </form>
+    </div>
+    
+    </div>
+    <div id="fileList"></div> <!-- This will display the uploaded files -->
+
+    <script type="text/javascript" src="script.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+    
+</body>
+</html>

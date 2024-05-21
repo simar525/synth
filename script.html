@@ -1,0 +1,80 @@
+             
+              let d;
+              d = Math.random()*3;
+             console.log(d);
+
+    
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const fileListContainer = document.getElementById('fileList');
+        
+        
+        var overlay = document.getElementById("overlay");
+        var elements = document.querySelectorAll(
+          "body > *:not(#overlay):not(#lottieContainer)"
+        );
+
+        // Event listener for file input change
+        fileInput.addEventListener('change', () => {
+            fileListContainer.innerHTML = ''; // Clear the previous list
+            
+            if (fileInput.files.length === 0) {
+                fileListContainer.innerHTML = '<p>No files selected!</p>';
+            } else {
+                const list = document.createElement('ul');
+                Array.from(fileInput.files).forEach(file => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = file.name; // Display the file name
+                    list.appendChild(listItem);
+                });
+                fileListContainer.appendChild(list);
+            }
+        });
+
+        function flow(event) {
+            event.preventDefault();
+            if(fileInput.files.length===0)
+            {
+                alert("No files uploaded!");
+            }
+            else
+            {
+                
+            lottieAnimation.style.display = "block";
+            overlay.style.display = "block";
+            elements.forEach(function (element) {
+              element.classList.add("blur");
+            });
+
+                
+                
+             let formData = new FormData(form); 
+            formData.append("qdrantCollection", `${d}`)
+            fetch("https://flowise-production-a718.up.railway.app/api/v1/vector/upsert/ec8a0802-b5a6-4768-8ce4-c535b7cb0b5e", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.numAdded) {
+                    
+                      lottieAnimation.style.display = "none";
+                      overlay.style.display = "none";
+                      elements.forEach(function (element) {
+                        element.classList.remove("blur");
+                      });
+                    alert("Files uploaded successfully!");
+                    window.location.href = `https://sdvsd.doo.ee/chat.html?id=${d}`;
+                } else {
+                    alert("Failed to upload: " + data.message);
+                }
+            })
+            .catch(error => {
+                alert("Error uploading files: See console for details.");
+                console.error(error);
+            });
+        }
+        }
+
+        form.addEventListener('submit', flow);
+        
